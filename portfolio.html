@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Kaushiki Constructions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/jpeg" href="images/site/logo.jpeg">
+<style>
+  :root {
+    --charcoal: #1F2421;
+    --limestone: #E8E2D6;
+    --rust: #A8462E;
+    --steel: #3E5C6B;
+    --sand: #C9BBA0;
+    --paper: #F7F5F0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--charcoal);
+    line-height: 1.5;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav {
+    background: var(--charcoal);
+    padding: 24px 0;
+  }
+  nav .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    color: var(--paper);
+    font-weight: 500;
+  }
+  .navlinks {
+    display: flex;
+    gap: 36px;
+    font-size: 14.5px;
+  }
+  .navlinks a { color: var(--paper); }
+  .navlinks a.current { color: var(--sand); border-bottom: 1px solid var(--sand); padding-bottom: 2px; }
+  .navlinks a:hover { color: var(--sand); }
+  .nav-cta {
+    border: 1px solid rgba(247,245,240,0.5);
+    padding: 9px 18px;
+    border-radius: 2px;
+    font-size: 14px;
+    color: var(--paper);
+  }
+  .nav-cta:hover { background: var(--paper); color: var(--charcoal); border-color: var(--paper); }
+
+  /* ---------- PAGE HEADER ---------- */
+  .page-header {
+    background: var(--charcoal);
+    color: var(--paper);
+    padding: 64px 0 56px;
+  }
+  .page-header .eyebrow {
+    color: var(--sand);
+    font-size: 14.5px;
+    margin-bottom: 16px;
+  }
+  .page-header h1 {
+    font-size: 44px;
+    max-width: 620px;
+    line-height: 1.1;
+  }
+  .page-header p {
+    color: rgba(247,245,240,0.8);
+    font-size: 16px;
+    max-width: 480px;
+    margin-top: 18px;
+  }
+
+  /* ---------- FILTERS ---------- */
+  .filter-bar {
+    background: var(--paper);
+    border-bottom: 1px solid rgba(31,36,33,0.12);
+    position: sticky;
+    top: 0;
+    z-index: 5;
+  }
+  .filter-bar .wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 18px 32px;
+    overflow-x: auto;
+  }
+  .filter-count {
+    font-size: 13.5px;
+    color: #5b5b56;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+  .filter-tab {
+    font-size: 14.5px;
+    padding: 8px 4px;
+    color: #5b5b56;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    cursor: pointer;
+    background: none;
+    border-top: none; border-left: none; border-right: none;
+    font-family: 'Inter', sans-serif;
+  }
+  .filter-tab + .filter-tab { margin-left: 22px; }
+  .filter-tab:hover { color: var(--charcoal); }
+  .filter-tab.active { color: var(--charcoal); border-bottom-color: var(--rust); }
+
+  /* ---------- GRID ---------- */
+  .section { padding: 64px 0 100px; }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px 24px;
+  }
+  .card {
+    display: block;
+  }
+  .card-img {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    aspect-ratio: 4 / 3;
+    background: var(--limestone);
+  }
+  .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .card:hover .card-img img { transform: scale(1.04); }
+  .card-year {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: rgba(247,245,240,0.9);
+    color: var(--charcoal);
+    font-size: 12px;
+    padding: 4px 9px;
+    border-radius: 2px;
+  }
+  .card-body {
+    padding-top: 16px;
+  }
+  .card-kind {
+    font-size: 12.5px;
+    color: var(--rust);
+    margin-bottom: 6px;
+  }
+  .card-name {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  .card-loc {
+    font-size: 13.5px;
+    color: #5b5b56;
+  }
+
+  .empty-state {
+    display: none;
+    text-align: center;
+    padding: 80px 0;
+    color: #5b5b56;
+    font-size: 15px;
+  }
+  .empty-state.show { display: block; }
+
+  .load-more {
+    text-align: center;
+    margin-top: 56px;
+  }
+  .load-more button {
+    background: none;
+    border: 1px solid rgba(31,36,33,0.3);
+    padding: 13px 30px;
+    font-size: 14.5px;
+    border-radius: 2px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    color: var(--charcoal);
+  }
+  .load-more button:hover { border-color: var(--charcoal); }
+
+  /* ---------- CTA BAND ---------- */
+  .cta-band {
+    background: var(--limestone);
+    padding: 72px 0;
+  }
+  .cta-band .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+  }
+  .cta-band h2 { font-size: 30px; max-width: 440px; }
+  .btn-primary {
+    background: var(--rust);
+    color: var(--paper);
+    padding: 14px 26px;
+    font-size: 15px;
+    border-radius: 2px;
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .btn-primary:hover { background: #8f3a26; }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    background: var(--charcoal);
+    padding: 28px 0;
+    border-top: 1px solid rgba(247,245,240,0.1);
+  }
+  footer .wrap {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--sand);
+  }
+
+  @media (max-width: 860px) {
+    .page-header h1 { font-size: 32px; }
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+    .navlinks { display: none; }
+    .cta-band .wrap { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 560px) {
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .filter-count { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">Kaushiki Constructions</div>
+    <div class="navlinks">
+      <a href="#" class="current">Work</a>
+      <a href="#">Services</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div>
+    <a href="#" class="nav-cta">Enquire</a>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="wrap">
+    <div class="eyebrow">Portfolio</div>
+    <h1>Twenty five years of projects, filed by the people who built them.</h1>
+    <p>Every project on this page went through the same team, from first drawing to final handover — filter by type to see the range.</p>
+  </div>
+</section>
+
+<div class="filter-bar">
+  <div class="wrap">
+    <button class="filter-tab active" data-filter="all">All work</button>
+    <button class="filter-tab" data-filter="residential">Residential</button>
+    <button class="filter-tab" data-filter="commercial">Commercial</button>
+    <button class="filter-tab" data-filter="structural">Structural</button>
+    <button class="filter-tab" data-filter="institutional">Institutional</button>
+    <div class="filter-count"><span id="count">9</span> projects</div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="wrap">
+    <div class="portfolio-grid" id="grid">
+
+      <a href="#" class="card" data-cat="residential">
+        <div class="card-img"><img src="images/projects/residential/PRASHANTH_REDDY.jpg" alt="The Kadam Residence"><span class="card-year">2024</span></div>
+        <div class="card-body">
+          <div class="card-kind">Residential</div>
+          <div class="card-name">Jagapathi Reddy</div>
+          <div class="card-loc">Nagarkurnool</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="commercial">
+        <div class="card-img"><img src="images/projects/commercial/Kashinatha_Towers.jpeg" alt="Lakeview Corporate Suites"><span class="card-year">2022</span></div>
+        <div class="card-body">
+          <div class="card-kind">Commercial</div>
+          <div class="card-name">Sri Kashinatha Towers</div>
+          <div class="card-loc">Alwal</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="structural">
+        <div class="card-img"><img src="images/projects/structural/KINARA_RESORT.avif" alt="Sarovar Business Park"><span class="card-year">2023</span></div>
+        <div class="card-body">
+          <div class="card-kind">Commercial</div>
+          <div class="card-name">Srinivas Commercial Complex</div>
+          <div class="card-loc">Kuntloor</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="institutional">
+        <div class="card-img"><img src="images/projects/institutional/SV_BUILDERS_HOSTEL.jpg" alt="Sarovar Business Park"><span class="card-year">2023</span></div>
+        <div class="card-body">
+          <div class="card-kind">Commercial</div>
+          <div class="card-name">Srinivas Commercial Complex</div>
+          <div class="card-loc">Kuntloor</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="commercial">
+        <div class="card-img"><img src="images/projects/commercial/SRINIVASLU_NGKL.jpg" alt="Sarovar Business Park"><span class="card-year">2023</span></div>
+        <div class="card-body">
+          <div class="card-kind">Commercial</div>
+          <div class="card-name">Srinivas Commercial Complex</div>
+          <div class="card-loc">Kuntloor</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="residential">
+        <div class="card-img"><img src="images/projects/residential/Vijaywada_Night_View.jpg" alt="Heritage Bungalow Restoration"><span class="card-year">2022</span></div>
+        <div class="card-body">
+          <div class="card-kind">Renovation</div>
+          <div class="card-name">Heritage Bungalow Restoration</div>
+          <div class="card-loc">Hyderabad</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="institutional">
+        <div class="card-img"><img src="images/projects/institutional/ATHVELLEY_SCHOOL.jpg" alt="Sarovar Business Park"><span class="card-year">2023</span></div>
+        <div class="card-body">
+          <div class="card-kind">Commercial</div>
+          <div class="card-name">Srinivas Commercial Complex</div>
+          <div class="card-loc">Kuntloor</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="residential">
+        <div class="card-img"><img src="images/projects/residential/SV_BUILDERS_MANNEGUDA_SOUTH_EAST_ELEVATION.jpg" alt="Green Vista Apartments"><span class="card-year">2023</span></div>
+        <div class="card-body">
+          <div class="card-kind">Residential</div>
+          <div class="card-name">Narsi Reddy</div>
+          <div class="card-loc">Shadnagar</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="institutional">
+        <div class="card-img"><img src="images/projects/institutional/YADAIHA-NAGARKURNOOL-SCHOOL.jpg" alt="Anand Public School"><span class="card-year">2023</span></div>
+        <div class="card-body">
+          <div class="card-kind">Institutional</div>
+          <div class="card-name">Yadaiah's School</div>
+          <div class="card-loc">Nagarkurnool</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="residential">
+        <div class="card-img"><img src="images/projects/residential/BMR_CONSTRUCTIONS_JADCHERLA.jpg" alt="Nandan Villa"><span class="card-year">2021</span></div>
+        <div class="card-body">
+          <div class="card-kind">Residential</div>
+          <div class="card-name">BMR Constructions</div>
+          <div class="card-loc">Jadcherla</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="residential">
+        <div class="card-img"><img src="images/projects/residential/RAVINDER_REDDY_HASTHINAPURAM.jpg" alt="Nizamabad Courtyard House"><span class="card-year">2020</span></div>
+        <div class="card-body">
+          <div class="card-kind">Residential</div>
+          <div class="card-name">Nizamabad Courtyard House</div>
+          <div class="card-loc">Hasthinapuram</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="institutional">
+        <div class="card-img"><img src="images/projects/institutional/BUSHAN_COMPOUND_WALL.jpg" alt="Sri Krishna Community Hall"><span class="card-year">2019</span></div>
+        <div class="card-body">
+          <div class="card-kind">Institutional</div>
+          <div class="card-name">Compound Wall, Bhushan's Estate </div>
+          <div class="card-loc">Karimnagar</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="residential">
+        <div class="card-img"><img src="images/projects/residential/Rvsd_NIGHT_VIEW.jpg" alt="Nizamabad Courtyard House"><span class="card-year">2020</span></div>
+        <div class="card-body">
+          <div class="card-kind">Residential</div>
+          <div class="card-name">Nizamabad Courtyard House</div>
+          <div class="card-loc">Hasthinapuram</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="commercial">
+        <div class="card-img"><img src="images/projects/commercial/PRASOONA_CHANDRAV_ATTAPUR.jpg" alt="Lakeview Corporate Suites"><span class="card-year">2022</span></div>
+        <div class="card-body">
+          <div class="card-kind">Commercial</div>
+          <div class="card-name">Sri Kashinatha Towers</div>
+          <div class="card-loc">Alwal</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="residential">
+        <div class="card-img"><img src="images/projects/residential/NARENDERA.jpg" alt="Nizamabad Courtyard House"><span class="card-year">2020</span></div>
+        <div class="card-body">
+          <div class="card-kind">Residential</div>
+          <div class="card-name">Nizamabad Courtyard House</div>
+          <div class="card-loc">Hasthinapuram</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="institutional">
+        <div class="card-img"><img src="images/projects/institutional/mks_function_hall.jpg" alt="Sarovar Business Park"><span class="card-year">2023</span></div>
+        <div class="card-body">
+          <div class="card-kind">Commercial</div>
+          <div class="card-name">Srinivas Commercial Complex</div>
+          <div class="card-loc">Kuntloor</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="commercial">
+        <div class="card-img"><img src="images/projects/commercial/MOUNIKA-COMMERCIAL-3REV.jpg" alt="Lakeview Corporate Suites"><span class="card-year">2022</span></div>
+        <div class="card-body">
+          <div class="card-kind">Commercial</div>
+          <div class="card-name">Sri Kashinatha Towers</div>
+          <div class="card-loc">Alwal</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="residential">
+        <div class="card-img"><img src="images/projects/residential/RAJESH_FINAL_ELEVATION-1.jpg" alt="Nizamabad Courtyard House"><span class="card-year">2020</span></div>
+        <div class="card-body">
+          <div class="card-kind">Residential</div>
+          <div class="card-name">Nizamabad Courtyard House</div>
+          <div class="card-loc">Hasthinapuram</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="commercial">
+        <div class="card-img"><img src="images/projects/commercial/GOPI.jpg" alt="Lakeview Corporate Suites"><span class="card-year">2022</span></div>
+        <div class="card-body">
+          <div class="card-kind">Commercial</div>
+          <div class="card-name">Sri Kashinatha Towers</div>
+          <div class="card-loc">Alwal</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="institutional">
+        <div class="card-img"><img src="images/projects/institutional/VATTEM_TEMPLE.jpg" alt="Sarovar Business Park"><span class="card-year">2023</span></div>
+        <div class="card-body">
+          <div class="card-kind">Commercial</div>
+          <div class="card-name">Srinivas Commercial Complex</div>
+          <div class="card-loc">Kuntloor</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="residential">
+        <div class="card-img"><img src="images/projects/residential/SRINATH_REDDY.jpg" alt="Nizamabad Courtyard House"><span class="card-year">2020</span></div>
+        <div class="card-body">
+          <div class="card-kind">Residential</div>
+          <div class="card-name">Nizamabad Courtyard House</div>
+          <div class="card-loc">Hasthinapuram</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="commercial">
+        <div class="card-img"><img src="images/projects/commercial/PADMAVATHI_DAY_VIEW.jpg" alt="Lakeview Corporate Suites"><span class="card-year">2022</span></div>
+        <div class="card-body">
+          <div class="card-kind">Commercial</div>
+          <div class="card-name">Sri Kashinatha Towers</div>
+          <div class="card-loc">Alwal</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="residential">
+        <div class="card-img"><img src="images/projects/residential/VARUN_ENGINEERS.jpg" alt="Nizamabad Courtyard House"><span class="card-year">2020</span></div>
+        <div class="card-body">
+          <div class="card-kind">Residential</div>
+          <div class="card-name">Nizamabad Courtyard House</div>
+          <div class="card-loc">Hasthinapuram</div>
+        </div>
+      </a>
+
+      <a href="#" class="card" data-cat="institutional">
+        <div class="card-img"><img src="images/projects/institutional/SV_BUILDERS_MEDCHEL.jpg" alt="Sarovar Business Park"><span class="card-year">2023</span></div>
+        <div class="card-body">
+          <div class="card-kind">Commercial</div>
+          <div class="card-name">Srinivas Commercial Complex</div>
+          <div class="card-loc">Kuntloor</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="empty-state" id="empty">No projects in this category yet — check back soon, or browse another filter.</div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Seen a project close to what you have in mind?</h2>
+    <a href="index.html#contact" class="btn-primary">Ask about a similar build</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 Kaushiki Constructions</div>
+    <div>Hyderabad, Telangana, India</div>
+  </div>
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.filter-tab');
+  const cards = document.querySelectorAll('.card');
+  const count = document.getElementById('count');
+  const empty = document.getElementById('empty');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const filter = tab.dataset.filter;
+      let visible = 0;
+      cards.forEach(card => {
+        const show = filter === 'all' || card.dataset.cat === filter;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      count.textContent = visible;
+      empty.classList.toggle('show', visible === 0);
+    });
+  });
+</script>
+
+</body>
+</html>
